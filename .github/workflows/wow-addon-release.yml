@@ -68,8 +68,8 @@ jobs:
     - name: Zip Folder
       run: |
         cd ../
-        rm -rf ${{ needs.prepare.outputs.reponame }}-classic-*.zip
-        zip -r ${{ needs.prepare.outputs.reponame }}-classic-${{ needs.prepare.outputs.tagname }}.zip ${{ needs.prepare.outputs.reponame }} -x "${{ needs.prepare.outputs.reponame }}/.git/*" "${{ needs.prepare.outputs.reponame }}/.github/*"
+        rm -rf ${{ needs.prepare.outputs.reponame }}*-classic.zip
+        zip -r ${{ needs.prepare.outputs.reponame }}-${{ needs.prepare.outputs.tagname }}-classic.zip ${{ needs.prepare.outputs.reponame }} -x "${{ needs.prepare.outputs.reponame }}/.git/*" "${{ needs.prepare.outputs.reponame }}/.github/*"
 
     - name: Upload
       env:
@@ -77,7 +77,7 @@ jobs:
         GH_REPO: ${{ github.repository }}
       run: |
         cd ../
-        gh release upload "${{ needs.prepare.outputs.tagname }}" "${{ needs.prepare.outputs.reponame }}-classic-${{ needs.prepare.outputs.tagname }}.zip"
+        gh release upload "${{ needs.prepare.outputs.tagname }}" "${{ needs.prepare.outputs.reponame }}-${{ needs.prepare.outputs.tagname }}-classic.zip"
 
   publish:
     name: Publish Release
